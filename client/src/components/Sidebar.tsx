@@ -1,6 +1,5 @@
 import { 
-  LayoutDashboard, Clock, Zap, DollarSign, Users, 
-  MessageSquare, ListChecks, Droplets, Ship
+  LayoutDashboard, Clock, Zap, Droplets, Film
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -10,13 +9,9 @@ interface SidebarProps {
 
 const navItems = [
   { id: 'overview', label: 'At a Glance', icon: LayoutDashboard },
-  { id: 'timeline', label: 'The Well', icon: Clock },
-  { id: 'stations', label: 'Stations', icon: Zap },
-  { id: 'sponsorship', label: 'Sponsorship', icon: DollarSign },
-  { id: 'guests', label: 'Guest List', icon: Users },
-  { id: 'syncs', label: 'BHD Syncs', icon: MessageSquare },
-  { id: 'deliverables', label: 'Deliverables', icon: ListChecks },
-  { id: 'ops-horizon', label: 'Ops Horizon', icon: Ship },
+  { id: 'journey', label: 'Guest Journey', icon: Clock },
+  { id: 'stations', label: 'Activation Stations', icon: Zap },
+  { id: 'nebula', label: 'Nebula Integration', icon: Film },
 ];
 
 export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
@@ -28,8 +23,8 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
           <Droplets className="w-5 h-5 text-terracotta" />
         </div>
         <div className="hidden lg:block">
-          <p className="font-display text-sm font-semibold text-sidebar-foreground leading-tight">GEYSER</p>
-          <p className="text-[10px] text-sidebar-foreground/60 tracking-wider uppercase" style={{ fontFamily: "var(--font-body)" }}>CR8W Dashboard</p>
+          <p className="font-display text-sm font-semibold text-sidebar-foreground leading-tight">CREATE WELL</p>
+          <p className="text-[10px] text-sidebar-foreground/60 tracking-wider uppercase" style={{ fontFamily: "var(--font-body)" }}>Guest Experience</p>
         </div>
       </div>
 

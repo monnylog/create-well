@@ -1,31 +1,22 @@
 /*
- * Geyser Planning Dashboard — Home Page
+ * Create Well Dashboard — Home Page
  * Design: Desert Dusk Command — Southwestern Minimalism meets Dashboard Precision
- * Palette: Sandy cream, terracotta, sage, dusty rose, deep umber, warm gold
- * Typography: Cormorant Garamond (display) + Source Sans 3 (body)
+ * Content: Guest Experience Journey from Sunshine's POV video
  */
 
 import { useState, useRef, useEffect } from 'react';
 import { Sidebar } from '@/components/Sidebar';
 import { GeyserOverviewSection } from '@/components/sections/GeyserOverview';
-import { PhaseTimelineSection } from '@/components/sections/PhaseTimeline';
-import { ActivationStationsSection } from '@/components/sections/ActivationStations';
-import { SponsorshipTrackerSection } from '@/components/sections/SponsorshipTracker';
-import { GuestCurationSection } from '@/components/sections/GuestCuration';
-import { BHDSyncTrackerSection } from '@/components/sections/BHDSyncTracker';
-import { MasterDeliverablesSection } from '@/components/sections/MasterDeliverables';
-import { OpsHorizonSection } from '@/components/sections/OpsHorizon';
+import GuestJourney from '@/components/sections/GuestJourney';
+import ActivationStationsDetail from '@/components/sections/ActivationStationsDetail';
+import NebulaIntegration from '@/components/sections/NebulaIntegration';
 import { Menu, X } from 'lucide-react';
 
 const sections = [
-  { id: 'overview', component: GeyserOverviewSection },
-  { id: 'timeline', component: PhaseTimelineSection },
-  { id: 'stations', component: ActivationStationsSection },
-  { id: 'sponsorship', component: SponsorshipTrackerSection },
-  { id: 'guests', component: GuestCurationSection },
-  { id: 'syncs', component: BHDSyncTrackerSection },
-  { id: 'deliverables', component: MasterDeliverablesSection },
-  { id: 'ops-horizon', component: OpsHorizonSection },
+  { id: 'overview', label: 'At a Glance', component: GeyserOverviewSection },
+  { id: 'journey', label: 'Guest Journey', component: GuestJourney },
+  { id: 'stations', label: 'Activation Stations', component: ActivationStationsDetail },
+  { id: 'nebula', label: 'Nebula Integration', component: NebulaIntegration },
 ];
 
 export default function Home() {
@@ -73,7 +64,7 @@ export default function Home() {
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-sidebar text-sidebar-foreground px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-lg">⛲</span>
-          <span className="font-display text-sm font-semibold">GEYSER</span>
+          <span className="font-display text-sm font-semibold">CREATE WELL</span>
         </div>
         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-1">
           {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -84,16 +75,7 @@ export default function Home() {
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-40 bg-sidebar/95 backdrop-blur-sm pt-14">
           <nav className="p-4 space-y-1">
-            {[
-              { id: 'overview', label: 'At a Glance' },
-              { id: 'timeline', label: 'The Well' },
-              { id: 'stations', label: 'Stations' },
-              { id: 'sponsorship', label: 'Sponsorship' },
-              { id: 'guests', label: 'Guest List' },
-              { id: 'syncs', label: 'BHD Syncs' },
-              { id: 'deliverables', label: 'Deliverables' },
-              { id: 'ops-horizon', label: 'Ops Horizon' },
-            ].map(item => (
+            {sections.map(item => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
@@ -114,7 +96,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="md:ml-16 lg:ml-56 pt-14 md:pt-0">
         <div className="max-w-5xl mx-auto px-4 md:px-8 py-6 md:py-10 space-y-16">
-          {sections.map(({ id, component: Component }) => (
+          {sections.map(({ id, label, component: Component }) => (
             <div
               key={id}
               id={id}
@@ -131,7 +113,7 @@ export default function Home() {
               ⛲ The Well is tended.
             </p>
             <p className="text-xs text-muted-foreground/60 mt-2" style={{ fontFamily: "var(--font-body)" }}>
-              Geyser Planning Dashboard &middot; Create Well 2026
+              Create Well Dashboard &middot; Guest Experience Design &middot; 2026
             </p>
           </footer>
         </div>
