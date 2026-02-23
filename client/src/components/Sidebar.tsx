@@ -1,5 +1,5 @@
-import { 
-  LayoutDashboard, Clock, Zap, Droplets, Film
+import {
+  LayoutDashboard, Clock, Zap, Droplets, Film, CalendarDays, Users, MessageCircle
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -10,7 +10,10 @@ interface SidebarProps {
 const navItems = [
   { id: 'overview', label: 'At a Glance', icon: LayoutDashboard },
   { id: 'journey', label: 'Guest Journey', icon: Clock },
+  { id: 'calendar', label: 'Team Calendar', icon: CalendarDays },
+  { id: 'tasks', label: 'Team Tasks', icon: Users },
   { id: 'stations', label: 'Activation Stations', icon: Zap },
+  { id: 'forum', label: 'Open Forum', icon: MessageCircle },
   { id: 'nebula', label: 'Nebula Integration', icon: Film },
 ];
 
@@ -37,13 +40,13 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
               key={item.id}
               onClick={() => onSectionChange(item.id)}
               className={`w-full flex items-center gap-3 px-2 lg:px-3 py-2.5 rounded-lg text-sm transition-all duration-200 group
-                ${isActive 
-                  ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
+                ${isActive
+                  ? 'bg-sidebar-accent text-sidebar-accent-foreground'
                   : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'
                 }`}
               style={{ fontFamily: "var(--font-body)" }}
             >
-              <item.icon className={`w-4 h-4 flex-shrink-0 transition-colors ${isActive ? 'text-terracotta' : 'text-sidebar-foreground/50 group-hover:text-sidebar-foreground/80'}`} />
+              <item.icon className={`w-4 h-4 flex-shrink-0 transition-colors ${isActive ? 'text-terracotta' : 'text-sidebar-foreground/50'}`} />
               <span className="hidden lg:inline font-medium">{item.label}</span>
             </button>
           );
