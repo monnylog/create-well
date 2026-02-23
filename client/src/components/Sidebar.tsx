@@ -1,5 +1,5 @@
 import {
-  LayoutDashboard, Clock, Zap, Droplets, Film, CalendarDays, Users, MessageCircle
+  LayoutDashboard, Clock, Zap, Droplets, CalendarDays, Users, MessageCircle
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -14,7 +14,6 @@ const navItems = [
   { id: 'tasks', label: 'Team Tasks', icon: Users },
   { id: 'stations', label: 'Activation Stations', icon: Zap },
   { id: 'forum', label: 'Open Forum', icon: MessageCircle },
-  { id: 'nebula', label: 'Nebula Integration', icon: Film },
 ];
 
 export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
