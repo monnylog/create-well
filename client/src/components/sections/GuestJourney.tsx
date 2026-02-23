@@ -41,17 +41,9 @@ export default function GuestJourney() {
               {expandedStep === step.id && (
                 <div className="mt-4 pt-4 border-t border-sage/30">
                   <p className="text-slate-700 mb-4 leading-relaxed">{step.description}</p>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <div className="text-xs uppercase tracking-widest text-sage mb-1">Emotional Arc</div>
-                      <p className="text-slate-600">{step.emotionalArc}</p>
-                    </div>
-                    {step.nebulaMoment && (
-                      <div>
-                        <div className="text-xs uppercase tracking-widest text-sage mb-1">Nebula Moment</div>
-                        <p className="text-slate-600">{step.nebulaMoment}</p>
-                      </div>
-                    )}
+                  <div>
+                    <div className="text-xs uppercase tracking-widest text-sage mb-1">Emotional Arc</div>
+                    <p className="text-slate-600">{step.emotionalArc}</p>
                   </div>
                 </div>
               )}
