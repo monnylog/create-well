@@ -8,7 +8,6 @@ import { Sidebar } from '@/components/Sidebar';
 import { GeyserOverviewSection } from '@/components/sections/GeyserOverview';
 import GuestJourney from '@/components/sections/GuestJourney';
 import ActivationStationsDetail from '@/components/sections/ActivationStationsDetail';
-import NebulaIntegration from '@/components/sections/NebulaIntegration';
 import { GoogleCalendarSection } from '@/components/sections/GoogleCalendarSection';
 import { TeamTasksSection } from '@/components/sections/TeamTasksSection';
 import { OpenForumSection } from '@/components/sections/OpenForumSection';
@@ -18,7 +17,6 @@ const sections = [
   { id: 'overview', label: 'At a Glance', component: GeyserOverviewSection },
   { id: 'journey', label: 'Guest Journey', component: GuestJourney },
   { id: 'stations', label: 'Activation Stations', component: ActivationStationsDetail },
-  { id: 'nebula', label: 'Nebula Integration', component: NebulaIntegration },
   { id: 'calendar', label: 'Team Calendar', component: GoogleCalendarSection },
   { id: 'tasks', label: 'Team Tasks', component: TeamTasksSection },
   { id: 'forum', label: 'Open Forum', component: OpenForumSection },
@@ -50,11 +48,9 @@ export default function Home() {
       },
       { rootMargin: '-20% 0px -60% 0px', threshold: 0 }
     );
-
     Object.values(sectionRefs.current).forEach(el => {
       if (el) observer.observe(el);
     });
-
     return () => observer.disconnect();
   }, []);
 
