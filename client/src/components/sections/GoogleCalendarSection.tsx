@@ -2,7 +2,7 @@ import { CalendarDays, ExternalLink } from 'lucide-react';
 
 const CALENDAR_ID = 'en.usa%23holiday%40group.v.calendar.google.com';
 
-export default function GoogleCalendarSection() {
+export function GoogleCalendarSection() {
   const embedUrl = `https://calendar.google.com/calendar/embed?src=${CALENDAR_ID}&ctz=America/Los_Angeles&mode=AGENDA&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&bgcolor=%23FDF6EE`;
 
   return (
