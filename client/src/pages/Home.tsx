@@ -5,7 +5,7 @@
  */
 import { useState } from 'react';
 import { Link } from 'wouter';
-import { CalendarDays, CheckCircle2, Clock, MapPin, ChevronRight, Sparkles, Users, Zap, MessageCircle, Menu, X } from 'lucide-react';
+import { CalendarDays, CheckCircle2, Clock, MapPin, ChevronRight, Sparkles, Users, Zap, MessageCircle } from 'lucide-react';
 import { geyserOverview, getDaysUntilLaunch } from '@/lib/data';
 import { GoogleCalendarSection } from '@/components/sections/GoogleCalendarSection';
 import { TeamTasksSection } from '@/components/sections/TeamTasksSection';
@@ -17,49 +17,22 @@ const detailPages = [
 ];
 
 export default function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const daysLeft = getDaysUntilLaunch();
   const overview = geyserOverview;
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Mobile Header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-sidebar text-sidebar-foreground px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-lg">⛲</span>
-          <span className="font-display text-sm font-semibold">CREATE WELL</span>
-        </div>
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-1">
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
+    <div className="lg:ml-56 min-h-screen bg-background">
+      <main className="max-w-4xl mx-auto px-4 md:px-8 pt-6 md:pt-8 pb-16">
 
-      {/* Mobile Nav Overlay */}
-      {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-sidebar/95 backdrop-blur-sm pt-14">
-          <nav className="p-4 space-y-1">
-            {detailPages.map(item => (
-              <Link key={item.href} href={item.href}>
-                <a className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent/50" style={{ fontFamily: 'var(--font-body)' }}>
-                  <item.icon className="w-4 h-4" />
-                  {item.label}
-                </a>
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
-
-      <main className="max-w-4xl mx-auto px-4 md:px-8 pt-16 md:pt-8 pb-16">
         {/* === BREATHING ROOM HEADER === */}
         <div className="mb-10">
           <div className="flex items-center gap-2 mb-3">
             <Sparkles className="w-4 h-4 text-terracotta/60" />
             <span className="text-xs font-semibold tracking-[0.2em] text-terracotta/60 uppercase" style={{ fontFamily: 'var(--font-body)' }}>Create Well Dashboard</span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl text-foreground mb-2">Good morning ✨</h1>
+          <h1 className="font-display text-3xl md:text-4xl text-foreground mb-2">Good morning \u2728</h1>
           <p className="text-muted-foreground text-sm" style={{ fontFamily: 'var(--font-body)' }}>
-            {daysLeft} days until CR8W Hard Launch · {overview.venue} · {overview.eventTime}
+            {daysLeft} days until CR8W Hard Launch \u00B7 {overview.venue} \u00B7 {overview.eventTime}
           </p>
         </div>
 
@@ -117,8 +90,8 @@ export default function Home() {
 
         {/* === FOOTER === */}
         <footer className="border-t border-border pt-6 pb-8 text-center">
-          <p className="font-display text-base text-muted-foreground">⛲ The Well is tended.</p>
-          <p className="text-xs text-muted-foreground/50 mt-1" style={{ fontFamily: 'var(--font-body)' }}>Create Well Dashboard · 2026</p>
+          <p className="font-display text-base text-muted-foreground">\u26F2 The Well is tended.</p>
+          <p className="text-xs text-muted-foreground/50 mt-1" style={{ fontFamily: 'var(--font-body)' }}>Create Well Dashboard \u00B7 2026</p>
         </footer>
       </main>
     </div>
