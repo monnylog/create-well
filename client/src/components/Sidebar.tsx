@@ -108,7 +108,7 @@ export function Sidebar() {
         {/* Footer */}
         <div className={`p-3 border-t border-sidebar-border text-center ${collapsed ? 'hidden' : ''}`}>
           <p className="text-[10px] text-sidebar-foreground/40" style={{ fontFamily: 'var(--font-body)' }}>
-            \u26F2 The Well is tended.
+                        ⛲ The Well is tended.
           </p>
         </div>
       </aside>
