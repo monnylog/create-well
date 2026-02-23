@@ -1,66 +1,28 @@
 /*
- * Create Well Dashboard — Home Page
- * Design: Desert Dusk Command — Southwestern Minimalism meets Dashboard Precision
- * Content: Guest Experience Journey from Sunshine's POV video
+ * Create Well Dashboard — Home
+ * ADHD-friendly: Only what matters RIGHT NOW
+ * Clean, breathable, supportive
  */
-import { useState, useRef, useEffect } from 'react';
-import { Sidebar } from '@/components/Sidebar';
-import { GeyserOverviewSection } from '@/components/sections/GeyserOverview';
-import GuestJourney from '@/components/sections/GuestJourney';
-import ActivationStationsDetail from '@/components/sections/ActivationStationsDetail';
+import { useState } from 'react';
+import { Link } from 'wouter';
+import { CalendarDays, CheckCircle2, Clock, MapPin, ChevronRight, Sparkles, Users, Zap, MessageCircle, Menu, X } from 'lucide-react';
+import { geyserOverview, getDaysUntilLaunch } from '@/lib/data';
 import { GoogleCalendarSection } from '@/components/sections/GoogleCalendarSection';
 import { TeamTasksSection } from '@/components/sections/TeamTasksSection';
-import { OpenForumSection } from '@/components/sections/OpenForumSection';
-import { Menu, X } from 'lucide-react';
 
-const sections = [
-  { id: 'overview', label: 'At a Glance', component: GeyserOverviewSection },
-  { id: 'journey', label: 'Guest Journey', component: GuestJourney },
-  { id: 'stations', label: 'Activation Stations', component: ActivationStationsDetail },
-  { id: 'calendar', label: 'Team Calendar', component: GoogleCalendarSection },
-  { id: 'tasks', label: 'Team Tasks', component: TeamTasksSection },
-  { id: 'forum', label: 'Open Forum', component: OpenForumSection },
+const detailPages = [
+  { href: '/journey', label: 'Guest Journey', icon: Clock, description: 'The evening flow, step by step' },
+  { href: '/stations', label: 'Activation Stations', icon: Zap, description: 'Every station, every detail' },
+  { href: '/forum', label: 'Open Forum', icon: MessageCircle, description: 'Team threads & decisions' },
 ];
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState('overview');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
-
-  const scrollToSection = (sectionId: string) => {
-    setActiveSection(sectionId);
-    setMobileMenuOpen(false);
-    const el = sectionRefs.current[sectionId];
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  // Intersection observer for active section tracking
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        }
-      },
-      { rootMargin: '-20% 0px -60% 0px', threshold: 0 }
-    );
-    Object.values(sectionRefs.current).forEach(el => {
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
+  const daysLeft = getDaysUntilLaunch();
+  const overview = geyserOverview;
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Desktop Sidebar */}
-      <div className="hidden md:block">
-        <Sidebar activeSection={activeSection} onSectionChange={scrollToSection} />
-      </div>
-
       {/* Mobile Header */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-sidebar text-sidebar-foreground px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -72,52 +34,92 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Nav Overlay */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-40 bg-sidebar/95 backdrop-blur-sm pt-14">
           <nav className="p-4 space-y-1">
-            {sections.map(item => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-colors ${
-                  activeSection === item.id
-                    ? 'bg-sidebar-accent text-sidebar-accent-foreground'
-                    : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50'
-                }`}
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                {item.label}
-              </button>
+            {detailPages.map(item => (
+              <Link key={item.href} href={item.href}>
+                <a className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent/50" style={{ fontFamily: 'var(--font-body)' }}>
+                  <item.icon className="w-4 h-4" />
+                  {item.label}
+                </a>
+              </Link>
             ))}
           </nav>
         </div>
       )}
 
-      {/* Main Content */}
-      <main className="md:ml-16 lg:ml-56 pt-14 md:pt-0">
-        <div className="max-w-5xl mx-auto px-4 md:px-8 py-6 md:py-10 space-y-16">
-          {sections.map(({ id, label, component: Component }) => (
-            <div
-              key={id}
-              id={id}
-              ref={el => { sectionRefs.current[id] = el; }}
-              className="scroll-mt-16 md:scroll-mt-8"
-            >
-              <Component />
-            </div>
-          ))}
-
-          {/* Footer */}
-          <footer className="border-t border-border pt-8 pb-12 text-center">
-            <p className="font-display text-lg text-muted-foreground">
-              ⛲ The Well is tended.
-            </p>
-            <p className="text-xs text-muted-foreground/60 mt-2" style={{ fontFamily: "var(--font-body)" }}>
-              Create Well Dashboard · Guest Experience Design · 2026
-            </p>
-          </footer>
+      <main className="max-w-4xl mx-auto px-4 md:px-8 pt-16 md:pt-8 pb-16">
+        {/* === BREATHING ROOM HEADER === */}
+        <div className="mb-10">
+          <div className="flex items-center gap-2 mb-3">
+            <Sparkles className="w-4 h-4 text-terracotta/60" />
+            <span className="text-xs font-semibold tracking-[0.2em] text-terracotta/60 uppercase" style={{ fontFamily: 'var(--font-body)' }}>Create Well Dashboard</span>
+          </div>
+          <h1 className="font-display text-3xl md:text-4xl text-foreground mb-2">Good morning ✨</h1>
+          <p className="text-muted-foreground text-sm" style={{ fontFamily: 'var(--font-body)' }}>
+            {daysLeft} days until CR8W Hard Launch · {overview.venue} · {overview.eventTime}
+          </p>
         </div>
+
+        {/* === COUNTDOWN CARD === */}
+        <div className="rounded-2xl bg-gradient-to-br from-terracotta/10 via-background to-sage/10 border border-terracotta/20 p-6 md:p-8 mb-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold tracking-wider text-terracotta/70 uppercase mb-1" style={{ fontFamily: 'var(--font-body)' }}>April 15, 2026</p>
+              <h2 className="font-display text-2xl md:text-3xl text-foreground">CR8W Hard Launch</h2>
+              <div className="flex items-center gap-4 mt-3 text-sm text-muted-foreground" style={{ fontFamily: 'var(--font-body)' }}>
+                <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> {overview.venue}</span>
+                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {overview.eventTime}</span>
+                <span className="flex items-center gap-1.5"><Users className="w-3.5 h-3.5" /> {overview.capacityRange}</span>
+              </div>
+            </div>
+            <div className="text-right hidden md:block">
+              <span className="font-display text-5xl text-terracotta">{daysLeft}</span>
+              <p className="text-xs text-muted-foreground mt-1" style={{ fontFamily: 'var(--font-body)' }}>days left</p>
+            </div>
+          </div>
+        </div>
+
+        {/* === TEAM TASKS (The core actionable section) === */}
+        <div className="mb-10">
+          <TeamTasksSection />
+        </div>
+
+        {/* === CALENDAR (What's coming up) === */}
+        <div className="mb-10">
+          <GoogleCalendarSection />
+        </div>
+
+        {/* === EXPLORE MORE (Links to detail pages) === */}
+        <div className="mb-10">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-xs font-semibold tracking-[0.2em] text-muted-foreground/60 uppercase" style={{ fontFamily: 'var(--font-body)' }}>Explore</span>
+          </div>
+          <div className="grid gap-3">
+            {detailPages.map(item => (
+              <Link key={item.href} href={item.href}>
+                <a className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:bg-card/80 hover:border-terracotta/30 transition-all group">
+                  <div className="w-10 h-10 rounded-lg bg-terracotta/10 flex items-center justify-center flex-shrink-0 group-hover:bg-terracotta/20 transition-colors">
+                    <item.icon className="w-5 h-5 text-terracotta/70" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-display text-sm font-semibold text-foreground">{item.label}</p>
+                    <p className="text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-body)' }}>{item.description}</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-terracotta/60 transition-colors" />
+                </a>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* === FOOTER === */}
+        <footer className="border-t border-border pt-6 pb-8 text-center">
+          <p className="font-display text-base text-muted-foreground">⛲ The Well is tended.</p>
+          <p className="text-xs text-muted-foreground/50 mt-1" style={{ fontFamily: 'var(--font-body)' }}>Create Well Dashboard · 2026</p>
+        </footer>
       </main>
     </div>
   );
