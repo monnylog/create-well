@@ -3,7 +3,6 @@
  * ADHD-friendly: Only what matters RIGHT NOW
  * Clean, breathable, supportive
  */
-import { useState } from 'react';
 import { Link } from 'wouter';
 import { CalendarDays, CheckCircle2, Clock, MapPin, ChevronRight, Sparkles, Users, Zap, MessageCircle } from 'lucide-react';
 import { geyserOverview, getDaysUntilLaunch } from '@/lib/data';
@@ -30,9 +29,9 @@ export default function Home() {
             <Sparkles className="w-4 h-4 text-terracotta/60" />
             <span className="text-xs font-semibold tracking-[0.2em] text-terracotta/60 uppercase" style={{ fontFamily: 'var(--font-body)' }}>Create Well Dashboard</span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl text-foreground mb-2">Good morning \u2728</h1>
+          <h1 className="font-display text-3xl md:text-4xl text-foreground mb-2">Good morning ✨</h1>
           <p className="text-muted-foreground text-sm" style={{ fontFamily: 'var(--font-body)' }}>
-            {daysLeft} days until CR8W Hard Launch \u00B7 {overview.venue} \u00B7 {overview.eventTime}
+            {daysLeft} days until CR8W Hard Launch · {overview.venue} · {overview.eventTime}
           </p>
         </div>
 
@@ -90,8 +89,8 @@ export default function Home() {
 
         {/* === FOOTER === */}
         <footer className="border-t border-border pt-6 pb-8 text-center">
-          <p className="font-display text-base text-muted-foreground">\u26F2 The Well is tended.</p>
-          <p className="text-xs text-muted-foreground/50 mt-1" style={{ fontFamily: 'var(--font-body)' }}>Create Well Dashboard \u00B7 2026</p>
+          <p className="font-display text-base text-muted-foreground">⛲ The Well is tended.</p>
+          <p className="text-xs text-muted-foreground/50 mt-1" style={{ fontFamily: 'var(--font-body)' }}>Create Well Dashboard · 2026</p>
         </footer>
       </main>
     </div>
