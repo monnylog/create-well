@@ -3,13 +3,15 @@
  * Design: Desert Dusk Command — Southwestern Minimalism meets Dashboard Precision
  * Content: Guest Experience Journey from Sunshine's POV video
  */
-
 import { useState, useRef, useEffect } from 'react';
 import { Sidebar } from '@/components/Sidebar';
 import { GeyserOverviewSection } from '@/components/sections/GeyserOverview';
 import GuestJourney from '@/components/sections/GuestJourney';
 import ActivationStationsDetail from '@/components/sections/ActivationStationsDetail';
 import NebulaIntegration from '@/components/sections/NebulaIntegration';
+import { GoogleCalendarSection } from '@/components/sections/GoogleCalendarSection';
+import { TeamTasksSection } from '@/components/sections/TeamTasksSection';
+import { OpenForumSection } from '@/components/sections/OpenForumSection';
 import { Menu, X } from 'lucide-react';
 
 const sections = [
@@ -17,6 +19,9 @@ const sections = [
   { id: 'journey', label: 'Guest Journey', component: GuestJourney },
   { id: 'stations', label: 'Activation Stations', component: ActivationStationsDetail },
   { id: 'nebula', label: 'Nebula Integration', component: NebulaIntegration },
+  { id: 'calendar', label: 'Team Calendar', component: GoogleCalendarSection },
+  { id: 'tasks', label: 'Team Tasks', component: TeamTasksSection },
+  { id: 'forum', label: 'Open Forum', component: OpenForumSection },
 ];
 
 export default function Home() {
@@ -113,7 +118,7 @@ export default function Home() {
               ⛲ The Well is tended.
             </p>
             <p className="text-xs text-muted-foreground/60 mt-2" style={{ fontFamily: "var(--font-body)" }}>
-              Create Well Dashboard &middot; Guest Experience Design &middot; 2026
+              Create Well Dashboard · Guest Experience Design · 2026
             </p>
           </footer>
         </div>
