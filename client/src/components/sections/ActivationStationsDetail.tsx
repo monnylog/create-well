@@ -43,28 +43,18 @@ export default function ActivationStationsDetail() {
                     <div className="text-xs uppercase tracking-widest text-sage mb-1">Facilitation</div>
                     <p className="text-sm text-slate-700">{station.facilitation}</p>
                   </div>
-
                   <div>
                     <div className="text-xs uppercase tracking-widest text-sage mb-1">Prompt</div>
                     <p className="text-sm text-slate-700 italic">{station.prompt}</p>
                   </div>
-
                   <div>
                     <div className="text-xs uppercase tracking-widest text-sage mb-1">Somatic Outcome</div>
                     <p className="text-sm text-slate-700">{station.somaticOutcome}</p>
                   </div>
-
                   <div className="pt-4 border-t border-sage/20">
                     <div className="text-xs uppercase tracking-widest text-sage mb-2">Setup</div>
                     <p className="text-xs text-slate-600">{station.setup}</p>
                   </div>
-
-                  {station.nebulaMoment && (
-                    <div className="pt-2 bg-terracotta/5 px-3 py-2 rounded">
-                      <div className="text-xs uppercase tracking-widest text-terracotta mb-1">Nebula</div>
-                      <p className="text-xs text-slate-600">{station.nebulaMoment}</p>
-                    </div>
-                  )}
                 </div>
               </div>
             );
