@@ -1,6 +1,7 @@
+import { put, list } from '@vercel/blob';
+
 export const config = { runtime: 'edge' };
 
-const BLOB_STORE_URL = 'https://blob.vercel-storage.com';
 const TASKS_KEY = 'tasks.json';
 
 interface Task {
@@ -25,17 +26,15 @@ const INITIAL_TASKS: Task[] = [
   { id: '9', title: 'Prepare team debrief template', assignee: 'Sunshine', status: 'todo', priority: 'low', dueDate: '2026-01-28' },
 ];
 
-async function getTasks(token: string): Promise<Task[]> {
+async function getTasks(): Promise<Task[]> {
   try {
-    const listRes = await fetch(`${BLOB_STORE_URL}?prefix=${TASKS_KEY}&limit=1`, {
-      headers: { authorization: `Bearer ${token}` },
-    });
-    const listData = await listRes.json();
-    if (listData.blobs && listData.blobs.length > 0) {
-      const dataRes = await fetch(listData.blobs[0].downloadUrl, {
-        headers: { authorization: `Bearer ${token}` },
-      });
-      return await dataRes.json();
+    const { blobs } = await list({ prefix: TASKS_KEY });
+    if (blobs.length > 0) {
+      const res = await fetch(blobs[0].url);
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) return data;
+      }
     }
   } catch (e) {
     console.error('Error reading tasks from blob:', e);
@@ -43,27 +42,15 @@ async function getTasks(token: string): Promise<Task[]> {
   return INITIAL_TASKS;
 }
 
-async function saveTasks(token: string, tasks: Task[]): Promise<void> {
-  await fetch(`${BLOB_STORE_URL}/${TASKS_KEY}`, {
-    method: 'PUT',
-    headers: {
-      authorization: `Bearer ${token}`,
-      'x-content-type': 'application/json',
-      'x-cache-control-max-age': '0',
-    },
-    body: JSON.stringify(tasks),
+async function saveTasks(tasks: Task[]): Promise<void> {
+  await put(TASKS_KEY, JSON.stringify(tasks), {
+    access: 'public',
+    addRandomSuffix: false,
+    contentType: 'application/json',
   });
 }
 
 export default async function handler(req: Request): Promise<Response> {
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
-  if (!token) {
-    return new Response(JSON.stringify({ error: 'Storage not configured' }), {
-      status: 500,
-      headers: { 'content-type': 'application/json', 'access-control-allow-origin': '*' },
-    });
-  }
-
   const headers = {
     'content-type': 'application/json',
     'access-control-allow-origin': '*',
@@ -76,14 +63,14 @@ export default async function handler(req: Request): Promise<Response> {
   }
 
   if (req.method === 'GET') {
-    const tasks = await getTasks(token);
+    const tasks = await getTasks();
     return new Response(JSON.stringify(tasks), { headers });
   }
 
   if (req.method === 'PUT') {
     try {
       const tasks: Task[] = await req.json();
-      await saveTasks(token, tasks);
+      await saveTasks(tasks);
       return new Response(JSON.stringify({ ok: true }), { headers });
     } catch (e) {
       return new Response(JSON.stringify({ error: 'Invalid data' }), { status: 400, headers });
