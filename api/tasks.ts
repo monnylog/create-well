@@ -14,21 +14,32 @@ interface Task {
 }
 
 const INITIAL_TASKS: Task[] = [
-  { id: '1', title: 'Finalize guest welcome packet design', assignee: 'Sunshine', status: 'in-progress', priority: 'high', dueDate: '2026-01-20', notes: 'Awaiting final copy from Monny' },
-  { id: '2', title: 'Review activation station signage proofs', assignee: 'Bingle', status: 'todo', priority: 'high', dueDate: '2026-01-18' },
-  { id: '3', title: 'Coordinate catering timeline with venue', assignee: 'Monny', status: 'in-progress', priority: 'medium', dueDate: '2026-01-22' },
-  { id: '4', title: 'Set up registration check-in tablets', assignee: 'Bingle', status: 'todo', priority: 'medium', dueDate: '2026-01-25' },
-  { id: '5', title: 'Draft social media post schedule', assignee: 'Sunshine', status: 'done', priority: 'low' },
-  { id: '6', title: 'Confirm AV equipment delivery window', assignee: 'Monny', status: 'blocked', priority: 'high', dueDate: '2026-01-17', notes: 'Vendor not responding' },
-  { id: '7', title: 'Create run-of-show document', assignee: 'Monny', status: 'todo', priority: 'high', dueDate: '2026-01-21' },
-  { id: '8', title: 'Test nebula projection mapping sequence', assignee: 'Bingle', status: 'in-progress', priority: 'medium', dueDate: '2026-01-23' },
-  { id: '9', title: 'Prepare team debrief template', assignee: 'Sunshine', status: 'todo', priority: 'low', dueDate: '2026-01-28' },
+  { id: '1', title: 'Confirm venue contract with Taverna Costera', assignee: 'Monny', status: 'in-progress', priority: 'high', dueDate: '2026-02-28', notes: 'Venue status still pending — need signed contract and deposit' },
+  { id: '2', title: 'Finalize CR8W pitch kit before BHD sync', assignee: 'Sunshine', status: 'in-progress', priority: 'high', dueDate: '2026-02-25', notes: 'Review at tomorrow Co-Hoe Updates sync' },
+  { id: '3', title: 'Draft sponsorship package document', assignee: 'Monny', status: 'in-progress', priority: 'high', dueDate: '2026-03-01', notes: 'Tier structure defined — need final copy and send list' },
+  { id: '4', title: 'Prep content intake brief for Bingle before Manila trip', assignee: 'Sunshine', status: 'todo', priority: 'high', dueDate: '2026-02-26', notes: 'Bingle leaves Feb 27 for 17 days — needs shot list and deliverables doc' },
+  { id: '5', title: 'Coordinate with Elle Hope on Word Bank station details', assignee: 'Sunshine', status: 'todo', priority: 'medium', dueDate: '2026-03-15', notes: 'Book display logistics, mic moment timing, closing poem selection' },
+  { id: '6', title: 'Reach out to Ilona Pamplona re: Human Design station format', assignee: 'Monny', status: 'todo', priority: 'medium', dueDate: '2026-03-10', notes: 'Lightning round format, type cards design, name tag badges' },
+  { id: '7', title: 'Write Notes from the Well prompt card copy', assignee: 'Sunshine', status: 'todo', priority: 'medium', dueDate: '2026-03-20', notes: 'Need seeded prompts for The Well + The Spring vessels' },
+  { id: '8', title: 'Set up CR8W Instagram account and handle', assignee: 'Bingle', status: 'blocked', priority: 'high', dueDate: '2026-03-16', notes: 'Blocked until Bingle returns from Manila (Mar 15)' },
+  { id: '9', title: 'Build RSVP and email list sign-up integration', assignee: 'Monny', status: 'todo', priority: 'medium', dueDate: '2026-03-15', notes: 'Need landing page with capacity tracker (100-200 guests)' },
+  { id: '10', title: 'Record Sunshine welcome + CR8W philosophy video', assignee: 'Bingle', status: 'todo', priority: 'high', dueDate: '2026-03-20', notes: 'Evergreen content — must capture before potential Virgin Voyages departure' },
+  { id: '11', title: 'Create day-of run-of-show document', assignee: 'Monny', status: 'todo', priority: 'high', dueDate: '2026-04-01', notes: 'Full timeline: Arrive (0-25min), Welcome, Tasting Menu, Connect, From the Well, Closing Ritual' },
+  { id: '12', title: 'Design and order welcome cards + bingo cards', assignee: 'Monny', status: 'todo', priority: 'medium', dueDate: '2026-03-25', notes: 'Welcome card shows 5 stations + evening flow; bingo card for guest exploration' },
+  { id: '13', title: 'Confirm painting station lead (Gaia/Angel) and supply list', assignee: 'Sunshine', status: 'todo', priority: 'low', dueDate: '2026-03-20', notes: 'Art supplies, protective covering, single prompt card' },
+  { id: '14', title: 'Define raffle prizes and incentive structure', assignee: 'Sunshine', status: 'todo', priority: 'low', dueDate: '2026-03-30', notes: 'Grand / Featured / Community tiers — coordinate with sponsors' },
+  { id: '15', title: 'Draft Sunshine closing toast and vision speech', assignee: 'Sunshine', status: 'todo', priority: 'medium', dueDate: '2026-04-05', notes: 'What CR8W is building, where it is going, and how tonight is just the first page' },
+  { id: '16', title: 'Source The Well + The Spring vessels', assignee: 'Monny', status: 'todo', priority: 'medium', dueDate: '2026-03-25', notes: 'Two branded vessels for the writing station — seed with pre-written cards before doors' },
+  { id: '17', title: 'Coordinate MBODY somatic/play activation details', assignee: 'Monny', status: 'todo', priority: 'low', dueDate: '2026-03-15', notes: 'Format TBD — something that gets people moving or laughing, a shared reset' },
+  { id: '18', title: 'Plan Feb-Apr workshop/gathering calendar', assignee: 'Sunshine', status: 'in-progress', priority: 'medium', dueDate: '2026-02-25', notes: 'Due for BHD sync discussion tomorrow' },
 ];
 
 async function getTasks(token: string): Promise<Task[]> {
   try {
     const listRes = await fetch(`${BLOB_API}?prefix=${encodeURIComponent(TASKS_KEY)}&limit=1`, {
-      headers: { authorization: `Bearer ${token}` },
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     });
     if (!listRes.ok) throw new Error(`List failed: ${listRes.status}`);
     const listData = await listRes.json();
