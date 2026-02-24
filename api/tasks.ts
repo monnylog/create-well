@@ -10,6 +10,7 @@ interface Task {
   status: 'todo' | 'in-progress' | 'done' | 'blocked';
   priority: 'low' | 'medium' | 'high';
   dueDate?: string;
+    links?: { label: string; url: string }[];
   notes?: string;
 }
 
