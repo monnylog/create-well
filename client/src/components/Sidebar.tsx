@@ -5,6 +5,7 @@ import {
   Clock,
   Zap,
   MessageCircle,
+  ShieldCheck,
   CalendarDays,
   Users,
   ChevronLeft,
@@ -21,6 +22,7 @@ const navItems = [
   { href: '/calendar', label: 'Team Calendar', icon: CalendarDays },
   { href: '/tasks', label: 'Team Tasks', icon: Users },
   { href: '/forum', label: 'Open Forum', icon: MessageCircle },
+  { href: '/wcag-results', label: 'WCAG Test Results', icon: ShieldCheck },
 ];
 
 export function Sidebar() {
@@ -32,6 +34,9 @@ export function Sidebar() {
     <>
       {/* Mobile menu button */}
       <button
+        type="button"
+        aria-label={mobileOpen ? 'Close dashboard navigation' : 'Open dashboard navigation'}
+        aria-expanded={mobileOpen}
         onClick={() => setMobileOpen(!mobileOpen)}
         className="fixed top-3 left-3 z-[60] lg:hidden w-10 h-10 rounded-lg bg-sidebar flex items-center justify-center text-sidebar-foreground shadow-lg"
       >
@@ -98,6 +103,9 @@ export function Sidebar() {
         {/* Collapse toggle - desktop only */}
         <div className="hidden lg:flex p-3 border-t border-sidebar-border justify-center">
           <button
+            type="button"
+            aria-label={collapsed ? 'Expand dashboard navigation' : 'Collapse dashboard navigation'}
+            aria-expanded={!collapsed}
             onClick={() => setCollapsed(!collapsed)}
             className="w-8 h-8 rounded-md flex items-center justify-center text-sidebar-foreground/40 hover:text-sidebar-foreground/70 hover:bg-sidebar-accent transition-colors"
           >

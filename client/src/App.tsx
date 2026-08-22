@@ -11,6 +11,7 @@ import ActivationStationsDetail from "@/components/sections/ActivationStationsDe
 import { GoogleCalendarSection } from "@/components/sections/GoogleCalendarSection";
 import { TeamTasksSection } from "@/components/sections/TeamTasksSection";
 import { OpenForumSection } from "@/components/sections/OpenForumSection";
+import WcagResults from "./pages/WcagResults";
 
 /* Detail page wrapper — adds padding + scroll for each section */
 function PageShell({ children }: { children: React.ReactNode }) {
@@ -43,6 +44,9 @@ function Router() {
         </Route>
         <Route path="/forum">
           <PageShell><OpenForumSection /></PageShell>
+        </Route>
+        <Route path="/wcag-results">
+          <WcagResults />
         </Route>
         <Route path="/404" component={NotFound} />
         {/* Final fallback route */}

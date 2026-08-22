@@ -31,7 +31,7 @@ export default function Home() {
           </div>
           <h1 className="font-display text-3xl md:text-4xl text-foreground mb-2">Good morning ✨</h1>
           <p className="text-muted-foreground text-sm" style={{ fontFamily: 'var(--font-body)' }}>
-            {daysLeft} days until CR8W Hard Launch · {overview.venue} · {overview.eventTime}
+            {daysLeft} days until CR8W Hard Launch · {overview.venue} · {overview.timeRange}
           </p>
         </div>
 
@@ -43,8 +43,8 @@ export default function Home() {
               <h2 className="font-display text-2xl md:text-3xl text-foreground">CR8W Hard Launch</h2>
               <div className="flex items-center gap-4 mt-3 text-sm text-muted-foreground" style={{ fontFamily: 'var(--font-body)' }}>
                 <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> {overview.venue}</span>
-                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {overview.eventTime}</span>
-                <span className="flex items-center gap-1.5"><Users className="w-3.5 h-3.5" /> {overview.capacityRange}</span>
+                <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> {overview.timeRange}</span>
+                <span className="flex items-center gap-1.5"><Users className="w-3.5 h-3.5" /> {overview.capacityMin}–{overview.capacityMax} guests</span>
               </div>
             </div>
             <div className="text-right hidden md:block">
